@@ -24,7 +24,7 @@ go build
 
 Scan some package registries!
 ```
-./typo-scanner npm react-dom -dr
+./typo-scanner npm react -dr
 ```
 The `-dr` specified above will search for [d]uplicate and [r]eversed character typos.
 

@@ -55,7 +55,7 @@ func Scan(pkgType PkgType, pkgUrl PkgUrl, original string, typos []string) ([]st
 		switch pkgType {
 		case Npm:
 			// Sometimes packages that were previously tagged as malicious will have the URL lying around but not be active
-			if strings.Contains(bodyString, "Security holding package") {
+			if strings.Contains(bodyString, "You may adopt this package by contacting") {
 				log.Printf("Previous TypoSquatter found in %s using the name: %s\n", pkgType, typo)
 				continue
 			}
