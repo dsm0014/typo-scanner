@@ -89,5 +89,4 @@ func initConfig() {
 		log.Fatal(err)
 
 	}
-	log.Printf("Using config file: %s\n", viper.ConfigFileUsed())
 }
