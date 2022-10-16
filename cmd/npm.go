@@ -17,13 +17,7 @@ Example:
   typo-scanner npm -d react`,
 	Args: cobra.MinimumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		for _, pkg := range args {
-			_, err := scanner.ScanNpm(pkg, genFlags)
-			if err != nil {
-				return err
-			}
-		}
-		return nil
+		return scanner.TypoScanEntrypoint(scanner.ScanNpm, args, genFlags)
 	},
 }
 

@@ -18,13 +18,7 @@ Example:
   typo-scanner go -dr github.com/fsnotify/fsnotify`,
 	Args: cobra.MinimumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		for _, pkg := range args {
-			_, err := scanner.ScanGo(pkg, genFlags)
-			if err != nil {
-				return err
-			}
-		}
-		return nil
+		return scanner.TypoScanEntrypoint(scanner.ScanGo, args, genFlags)
 	},
 }
 

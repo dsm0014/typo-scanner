@@ -18,13 +18,7 @@ Example:
   typo-scanner mvn -dr io.cucumber/cucumber-java`,
 	Args: cobra.MinimumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		for _, pkg := range args {
-			_, err := scanner.ScanMvn(pkg, genFlags)
-			if err != nil {
-				return err
-			}
-		}
-		return nil
+		return scanner.TypoScanEntrypoint(scanner.ScanMvn, args, genFlags)
 	},
 }
 
