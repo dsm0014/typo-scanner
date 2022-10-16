@@ -34,12 +34,6 @@ jobs:
           name: ${{ env.BINARY_NAME }}
           path: ./${{ env.BINARY_NAME }}
 
-
-    with:
-      go-version: 1.19
-      evaluated-envs: "COMMIT_DATE:${{needs.args.outputs.commit-date}}, COMMIT:${{needs.args.outputs.commit}}, VERSION:${{needs.args.outputs.version}}, TREE_STATE:${{needs.args.outputs.tree-state}}"
-
-
   docker:
     runs-on: ubuntu-latest
     permissions:
