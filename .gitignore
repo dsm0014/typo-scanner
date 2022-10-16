@@ -1,4 +1,6 @@
 .idea/
 .DS_STORE
+*.key
+*.pub
 ./tmp/
 ./typo-scanner
