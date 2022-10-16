@@ -65,8 +65,7 @@ jobs:
           context: .
           push: true
           tags: ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ github.run_id }}
-          build-args:
-            - BINARY_NAME: ${{ env.IMAGE_NAME }
+          build-args: ["BINARY_NAME=${{ env.IMAGE_NAME }}"]
 
   secure:
     runs-on: ubuntu-latest
