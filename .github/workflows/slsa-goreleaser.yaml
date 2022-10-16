@@ -23,7 +23,10 @@ jobs:
           fetch-depth: 0
       - id: ldflags
         run: |
-          echo "::set-output name=value::$(./scripts/version-ldflags)"
+          echo "::set-output name=commit-date::$(git log --date=iso8601-strict -1 --pretty=%ct)"
+          echo "::set-output name=commit::$GITHUB_SHA"
+          echo "::set-output name=version::$(git describe --tags --always --dirty | cut -c2-)"
+          echo "::set-output name=tree-state::$(if git diff --quiet; then echo "clean"; else echo "dirty"; fi)"
 
 
   build:
@@ -35,7 +38,7 @@ jobs:
     uses: slsa-framework/slsa-github-generator/.github/workflows/builder_go_slsa3.yml@v1.2.0
     with:
       go-version: 1.19
-      evaluated-envs: "VERSION_LDFLAGS:${{needs.args.outputs.ldflags}}"
+      evaluated-envs: "COMMIT_DATE:${{needs.args.outputs.commit-date}}, COMMIT:${{needs.args.outputs.commit}}, VERSION:${{needs.args.outputs.version}}, TREE_STATE:${{needs.args.outputs.tree-state}}"
 
 
   docker:
