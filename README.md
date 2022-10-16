@@ -17,11 +17,14 @@ The following public registries are currently supported:
 
 ## Getting Started
 Install from source
-`git clone https://github.com/dsm0014/typo-scanner.git`
-`go build`
+```
+git clone https://github.com/dsm0014/typo-scanner.git
+go build
+```
 
-Scan some package registries!
-`./typo-scanner npm react-dom -dr`
+Scan some package registries!<br>
+`./typo-scanner npm react-dom -dr`<br>
+The `-dr` specified above will search for [d]uplicate and [r]eversed character typos.
 
 For more details on flags and command options explore the detailed help commands.
 ```
