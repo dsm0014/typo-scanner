@@ -4,9 +4,9 @@ Copyright © 2022 Daniel Morrison
 package cmd
 
 import (
-	"github.com/spf13/cobra"
 	"github.com/dsm0014/typo-scanner/scanner"
 	"github.com/dsm0014/typo-scanner/typo"
+	"github.com/spf13/cobra"
 )
 
 var mvnCmd = &cobra.Command{
@@ -20,7 +20,7 @@ Example:
 	Args: cobra.MinimumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		for _, pkg := range args {
-			typoList := typo.TypoGenerator(pkg, typoFlags)
+			typoList := typo.TypoGenerator(pkg, genFlags)
 			_, err := scanner.ScanMvn(pkg, typoList)
 			if err != nil {
 				return err

@@ -10,19 +10,27 @@ const (
 )
 
 type typos struct {
+	Excluded []string
 	Original string
 	Typos    []string
 }
 
-func NewTypos(original string) *typos {
+func NewTypos(original string, excluded []string) *typos {
 	return &typos{
 		Original: original,
+		Excluded: excluded,
 	}
 }
 
 func (t *typos) AddTypo(s string) {
 	if s == t.Original {
 		return
+	}
+
+	for _, b := range t.Excluded {
+		if s == b {
+			return
+		}
 	}
 
 	for _, b := range t.Typos {
