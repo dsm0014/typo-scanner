@@ -4,27 +4,27 @@ import (
 	"log"
 )
 
-func TypoGenerator(baseline string, flags TypoFlags) []string {
-	if flags == NewTypoFlags() {
+func TypoGenerator(baseline string, genFlags GeneratorFlags) []string {
+	if genFlags.Typo == NewTypoFlags() {
 		log.Fatal("ERROR: At least one typo flag must be specified")
 	}
-	t := NewTypos(baseline)
-	if flags.ExtraKey {
+	t := NewTypos(baseline, genFlags.Excluded)
+	if genFlags.Typo.ExtraKey {
 		t.InsertedKey()
 	}
-	if flags.Skip {
+	if genFlags.Typo.Skip {
 		t.SkipLetter()
 	}
-	if flags.Double {
+	if genFlags.Typo.Double {
 		t.DoubleLetter()
 	}
-	if flags.Reverse {
+	if genFlags.Typo.Reverse {
 		t.ReverseLetter()
 	}
-	if flags.Vowel {
+	if genFlags.Typo.Vowel {
 		t.WrongVowel()
 	}
-	if flags.Key {
+	if genFlags.Typo.Key {
 		t.WrongKey()
 	}
 	return t.Typos

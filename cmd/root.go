@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	cfgFile   string
-	typoFlags typo.TypoFlags
+	cfgFile  string
+	genFlags typo.GeneratorFlags
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -27,6 +27,10 @@ attempting to impersonate your package and wreak havoc via TypoSquatting.
 The typo-scanner CLI is a lightweight tool for discovering if your packages
 are being subject to this form of Software Supply Chain attack. The scanner 
 generates a multitude of types of typos and verifies whether they exist or not.
+
+Examples:
+  typo-scanner npm -dr react
+  typo-scanner pypi -d fastapi -x faastapi
 `,
 }
 
@@ -48,12 +52,13 @@ func init() {
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.typo-scanner.yaml)")
 
-	rootCmd.PersistentFlags().BoolVarP(&typoFlags.ExtraKey, "extra-key", "e", false, "Check for typos with an additional character")
-	rootCmd.PersistentFlags().BoolVarP(&typoFlags.Skip, "skip", "s", false, "Check for typos with skipped characters")
-	rootCmd.PersistentFlags().BoolVarP(&typoFlags.Double, "double", "d", false, "Check for typos with doubled characters")
-	rootCmd.PersistentFlags().BoolVarP(&typoFlags.Reverse, "reverse", "r", false, "Check for typos with reversed characters")
-	rootCmd.PersistentFlags().BoolVarP(&typoFlags.Vowel, "vowel", "v", false, "Check for typos with incorrect vowels")
-	rootCmd.PersistentFlags().BoolVarP(&typoFlags.Key, "key", "k", false, "Check for typos with any incorrect characters")
+	rootCmd.PersistentFlags().BoolVarP(&genFlags.Typo.ExtraKey, "extra-key", "e", false, "Check for typos with an additional character")
+	rootCmd.PersistentFlags().BoolVarP(&genFlags.Typo.Skip, "skip", "s", false, "Check for typos with skipped characters")
+	rootCmd.PersistentFlags().BoolVarP(&genFlags.Typo.Double, "double", "d", false, "Check for typos with doubled characters")
+	rootCmd.PersistentFlags().BoolVarP(&genFlags.Typo.Reverse, "reverse", "r", false, "Check for typos with reversed characters")
+	rootCmd.PersistentFlags().BoolVarP(&genFlags.Typo.Vowel, "vowel", "v", false, "Check for typos with incorrect vowels")
+	rootCmd.PersistentFlags().BoolVarP(&genFlags.Typo.Key, "key", "k", false, "Check for typos with any incorrect characters")
+	rootCmd.PersistentFlags().StringSliceVarP(&genFlags.Excluded, "excluded", "x", []string{}, "Array of typos to exclude from scans (ex: -x faastapi,fasttapi)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.

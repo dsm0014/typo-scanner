@@ -24,9 +24,14 @@ go build
 
 Scan some package registries!
 ```
-./typo-scanner npm react -dr
+./typo-scanner npm -dr react
 ```
 The `-dr` specified above will search for [d]uplicate and [r]eversed character typos.
+
+If a legitimate package is getting flagged incorrectly, use the [e]xclude flag to ignore it in your results.
+```
+./typo-scanner pypi fastapi -d -x faastapi
+```
 
 For more details on flags and command options explore the detailed help commands.
 ```

@@ -7,6 +7,7 @@ import (
 type fields struct {
 	Original string
 	Typos    []string
+	Excluded []string
 }
 
 type typotest struct {
@@ -27,6 +28,7 @@ func Test_typos_AddTypo(t1 *testing.T) {
 	}{
 		{"DontAddSameAsOriginal", fields{Original: "ddog"}, args{s: "ddog"}, 0},
 		{"DontAddExisting", fields{Original: "cat", Typos: []string{"ccat"}}, args{s: "ccat"}, 1},
+		{"DontAddExcluded", fields{Original: "fastapi", Typos: []string{"ffastapi"}, Excluded: []string{"faastapi"}}, args{s: "faastapi"}, 1},
 		{"DoAddNew", fields{Original: "dog"}, args{s: "ddog"}, 1},
 	}
 	for _, tt := range tests {
@@ -34,6 +36,7 @@ func Test_typos_AddTypo(t1 *testing.T) {
 			t := &typos{
 				Original: tt.fields.Original,
 				Typos:    tt.fields.Typos,
+				Excluded: tt.fields.Excluded,
 			}
 			t.AddTypo(tt.args.s)
 			if tt.resultLength != len(t.Typos) {

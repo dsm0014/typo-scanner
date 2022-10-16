@@ -19,3 +19,8 @@ func NewTypoFlags() TypoFlags {
 		Key:      false,
 	}
 }
+
+type GeneratorFlags struct {
+	Excluded []string
+	Typo     TypoFlags
+}

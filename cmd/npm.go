@@ -4,9 +4,8 @@ Copyright © 2022 Daniel Morrison
 package cmd
 
 import (
-	"github.com/spf13/cobra"
 	"github.com/dsm0014/typo-scanner/scanner"
-	"github.com/dsm0014/typo-scanner/typo"
+	"github.com/spf13/cobra"
 )
 
 var npmCmd = &cobra.Command{
@@ -19,8 +18,7 @@ Example:
 	Args: cobra.MinimumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		for _, pkg := range args {
-			typoList := typo.TypoGenerator(pkg, typoFlags)
-			_, err := scanner.ScanNpm(pkg, typoList)
+			_, err := scanner.ScanNpm(pkg, genFlags)
 			if err != nil {
 				return err
 			}
