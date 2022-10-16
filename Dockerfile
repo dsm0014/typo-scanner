@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 golang:1.19.2rc1-buster
+FROM --platform=linux/amd64 golang:1.19.2-buster
 WORKDIR /
 ARG BINARY_NAME
 ENV BINARY_NAME=$BINARY_NAME
