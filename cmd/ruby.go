@@ -5,7 +5,6 @@ package cmd
 
 import (
 	"github.com/dsm0014/typo-scanner/scanner"
-	"github.com/dsm0014/typo-scanner/typo"
 	"github.com/spf13/cobra"
 )
 
@@ -19,8 +18,7 @@ Example:
 	Args: cobra.MinimumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		for _, pkg := range args {
-			typoList := typo.TypoGenerator(pkg, genFlags)
-			_, err := scanner.ScanRuby(pkg, typoList)
+			_, err := scanner.ScanRuby(pkg, genFlags)
 			if err != nil {
 				return err
 			}
