@@ -4,9 +4,9 @@ Copyright © 2022 Daniel Morrison
 package cmd
 
 import (
+	"github.com/dsm0014/typo-scanner/typo"
 	"log"
 	"os"
-	"github.com/dsm0014/typo-scanner/typo"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -35,11 +35,6 @@ generates a multitude of types of typos and verifies whether they exist or not.
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
-		os.Exit(1)
-	}
-	if typoFlags == typo.NewTypoFlags() {
-		log.Println("Error: At least one typo flag must be specified")
-		rootCmd.Help()
 		os.Exit(1)
 	}
 }
