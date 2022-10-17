@@ -32,7 +32,10 @@ func ScanRuby(original string, flags typo.GeneratorFlags) ([]string, error) {
 func Scan(pkgType PkgType, pkgUrl PkgUrl, original string, flags typo.GeneratorFlags) ([]string, error) {
 	logger.Printf("Scanning %s for typos of: %s", pkgType, original)
 	var matches []string
-	typos := typo.TypoGenerator(original, flags)
+	typos, err := typo.TypoGenerator(original, flags)
+	if err != nil {
+		return nil, err
+	}
 	var wg sync.WaitGroup
 	wg.Add(len(typos))
 	for _, t := range typos {
@@ -53,7 +56,8 @@ func ScanTypoRoutine(wg *sync.WaitGroup, pkgType PkgType, pkgUrl PkgUrl, matches
 	defer wg.Done()
 	resp, err := http.Get(fmt.Sprintf("%s%s", pkgUrl, t))
 	if err != nil {
-		logger.Fatalf("Error looking up NPM package: %s", err)
+		logger.Printf("Error looking up NPM package: %s", err)
+		return
 	}
 	defer resp.Body.Close()
 
@@ -65,7 +69,8 @@ func ScanTypoRoutine(wg *sync.WaitGroup, pkgType PkgType, pkgUrl PkgUrl, matches
 
 	bodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
-		logger.Fatal(err)
+		logger.Println(err)
+		return
 	}
 	bodyString := string(bodyBytes)
 

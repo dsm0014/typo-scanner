@@ -1,13 +1,15 @@
 package typo
 
 import (
+	"errors"
 	"github.com/dsm0014/typo-scanner/util"
 )
 
-func TypoGenerator(baseline string, genFlags GeneratorFlags) []string {
+func TypoGenerator(baseline string, genFlags GeneratorFlags) ([]string, error) {
 	logger := util.GetLogger(genFlags.SuppressLogs)
 	if genFlags.Typo == NewTypoFlags() {
-		logger.Fatal("ERROR: At least one typo flag must be specified")
+		logger.Println("ERROR: At least one typo flag must be specified")
+		return nil, errors.New("ERROR: At least one typo flag must be specified")
 	}
 	t := NewTypos(baseline, genFlags.Excluded)
 	if genFlags.Typo.ExtraKey {
@@ -28,5 +30,5 @@ func TypoGenerator(baseline string, genFlags GeneratorFlags) []string {
 	if genFlags.Typo.Key {
 		t.WrongKey()
 	}
-	return t.Typos
+	return t.Typos, nil
 }
