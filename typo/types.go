@@ -21,6 +21,7 @@ func NewTypoFlags() TypoFlags {
 }
 
 type GeneratorFlags struct {
-	Excluded []string
-	Typo     TypoFlags
+	Typo         TypoFlags
+	Excluded     []string
+	SuppressLogs bool
 }

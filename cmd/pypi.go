@@ -17,13 +17,7 @@ Example:
   typo-scanner pypi -dr cucumber`,
 	Args: cobra.MinimumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		for _, pkg := range args {
-			_, err := scanner.ScanPypi(pkg, genFlags)
-			if err != nil {
-				return err
-			}
-		}
-		return nil
+		return scanner.TypoScanEntrypoint(scanner.ScanPypi, args, genFlags)
 	},
 }
 
