@@ -1,12 +1,13 @@
 package typo
 
 import (
-	"log"
+	"github.com/dsm0014/typo-scanner/util"
 )
 
 func TypoGenerator(baseline string, genFlags GeneratorFlags) []string {
+	logger := util.GetLogger(genFlags.SuppressLogs)
 	if genFlags.Typo == NewTypoFlags() {
-		log.Fatal("ERROR: At least one typo flag must be specified")
+		logger.Fatal("ERROR: At least one typo flag must be specified")
 	}
 	t := NewTypos(baseline, genFlags.Excluded)
 	if genFlags.Typo.ExtraKey {
