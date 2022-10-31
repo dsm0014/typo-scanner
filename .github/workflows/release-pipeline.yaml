@@ -27,5 +27,5 @@ jobs:
         run: go build -o ${{ env.IMAGE_NAME }}
 
       - name: scan some
-        run: ./${{ env.IMAGE_NAME }} npm -drsv express bluebird
+        run: ./${{ env.IMAGE_NAME }} npm -drsv react-native prop-types
 
